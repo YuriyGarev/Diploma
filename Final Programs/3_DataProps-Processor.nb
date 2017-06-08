@@ -1,0 +1,696 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26899,        688]
+NotebookOptionsPosition[     23158,        592]
+NotebookOutlinePosition[     23501,        607]
+CellTagsIndexPosition[     23458,        604]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Wavelet Sound DataProps-Processor", "Title",
+ CellChangeTimes->{
+  3.7003941507842107`*^9, {3.700399051423264*^9, 3.7003990535337505`*^9}, {
+   3.7049507451315117`*^9, 3.7049507566130486`*^9}, {3.7052067600435505`*^9, 
+   3.705206767198307*^9}, {3.7055690031802177`*^9, 
+   3.7055690059656153`*^9}},ExpressionUUID->"d75c2021-2f0d-4da8-acaf-\
+7251bbd3d647"],
+
+Cell[CellGroupData[{
+
+Cell["Author", "Subsection",ExpressionUUID->"57e67597-fd37-4e02-9950-ada93f679c4a"],
+
+Cell["\<\
+Yuriy V. Garev
+st. of gr. AM-13-1
+May 1, 2017\
+\>", "Text",
+ CellChangeTimes->{{3.700880728900569*^9, 3.700880801217671*^9}, {
+  3.7049574891135564`*^9, 
+  3.704957493359109*^9}},ExpressionUUID->"67b9846e-4d8b-4118-b7e2-\
+c17dd77e9f55"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Clear Kernel", "Subsection",
+ CellChangeTimes->{{3.700394254123452*^9, 
+  3.700394258999107*^9}},ExpressionUUID->"94cdfd79-941f-4ed2-b0b2-\
+b67a4d069dff"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.700394245796633*^9, 3.7003942464063063`*^9}, {
+   3.70039581492553*^9, 3.7003958281528234`*^9}, {3.7003974434594145`*^9, 
+   3.70039746261145*^9}, {3.7003999126192474`*^9, 3.7003999443563204`*^9}, {
+   3.704950764078435*^9, 3.704950764647793*^9}, {3.705514205567835*^9, 
+   3.7055142072629433`*^9}, 
+   3.705651365343274*^9},ExpressionUUID->"14acf2ff-68b7-4533-a552-\
+ba174f318cae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Functions", "Section",
+ CellChangeTimes->{{3.704950791673492*^9, 
+  3.704950796400846*^9}},ExpressionUUID->"bd7889dc-611b-4e7b-90b7-\
+3280f1d693f8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\[IndentingNewLine]", 
+   RowBox[{
+   "DataProps", ",", "\[IndentingNewLine]", "Dump2File", ",", "GetDump", ",", 
+    "\[IndentingNewLine]", "DumpSongAudioMeasurementsTable", ",", 
+    "GetSongAudioMeasurementsTable", ",", "\[IndentingNewLine]", 
+    "GetMetaTable", ",", "GetDirTable", ",", "BuildSongsTable"}], 
+   "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7055645380094576`*^9, 3.7055646041317863`*^9}, {
+  3.7055646374180503`*^9, 3.7055646863562336`*^9}, {3.7055690522131844`*^9, 
+  3.7055690618987875`*^9}, {3.7055691079385557`*^9, 3.705569108456862*^9}, {
+  3.7055704784444823`*^9, 3.705570484161664*^9}, {3.7056428136890626`*^9, 
+  3.7056428227457905`*^9}},ExpressionUUID->"46996e5e-38a1-437b-99f2-\
+a703d044e37f"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"BuildSongsTable", "[", "array_", "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{"TableForm", "[", 
+    RowBox[{
+     RowBox[{"array", "\[LeftDoubleBracket]", 
+      RowBox[{"All", ",", "All", ",", "2"}], "\[RightDoubleBracket]"}], ",", 
+     RowBox[{"TableHeadings", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"None", ",", 
+        RowBox[{"array", "\[LeftDoubleBracket]", 
+         RowBox[{"1", ",", "All", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+       "}"}]}]}], "]"}], "\[IndentingNewLine]", 
+   ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"BuildSongTable", "[", "array_", "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{"TableForm", "[", 
+    RowBox[{"Apply", "[", 
+     RowBox[{"List", ",", "array", ",", 
+      RowBox[{"{", "1", "}"}]}], "]"}], "]"}], "\[IndentingNewLine]", 
+   ")"}]}]}], "Input",
+ CellChangeTimes->{{3.705642617894456*^9, 3.705642641297615*^9}, {
+   3.705642798878949*^9, 3.705642840958331*^9}, {3.705642879314034*^9, 
+   3.7056428896005373`*^9}, 
+   3.7056429602495995`*^9},ExpressionUUID->"5bd2f1b9-ae8c-47cf-951d-\
+a1f201552382"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"DownSampleAudioFile", "[", 
+   RowBox[{"audioFile_", ",", "sampleRate_", ",", 
+    RowBox[{"channels_:", "1"}]}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{"If", "[", 
+    RowBox[{
+     RowBox[{"channels", "\[Equal]", "1"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Return", "[", 
+       RowBox[{"AudioResample", "[", 
+        RowBox[{"audioFile", ",", "sampleRate"}], "]"}], "]"}], ";"}], 
+     "\[IndentingNewLine]", ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Return", "[", 
+       RowBox[{"[", 
+        RowBox[{"ParallelTable", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"AudioResample", "[", 
+            RowBox[{
+             RowBox[{
+             "audioFile", "\[LeftDoubleBracket]", "i", 
+              "\[RightDoubleBracket]"}], ",", "sampleRate"}], "]"}], ";"}], 
+          "\[IndentingNewLine]", ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", "channels"}], "}"}]}], "]"}], "]"}], "]"}], 
+      ";"}]}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.7050799560164413`*^9, 3.7050801472572217`*^9}, {
+  3.705080245232382*^9, 3.7050803007189507`*^9}, {3.7050804770407376`*^9, 
+  3.705080480591179*^9}, {3.7050807033800063`*^9, 3.7050807225724773`*^9}, {
+  3.7051408659720745`*^9, 3.705140878107586*^9}, {3.7055707218148017`*^9, 
+  3.705570722186775*^9}},ExpressionUUID->"51d45a67-53de-4855-b6cb-\
+17eedbefdd34"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"TakeMainParts", "[", "array_", "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Clear", "[", "len", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"len", "=", 
+     RowBox[{"Length", "[", "array", "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Return", "[", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"array", "\[LeftDoubleBracket]", 
+         RowBox[{"2", ";;", "4"}], "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"array", "\[LeftDoubleBracket]", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"IntegerPart", "[", 
+            FractionBox["len", "2"], "]"}], "-", "1"}], ";;", 
+          RowBox[{
+           RowBox[{"IntegerPart", "[", 
+            FractionBox["len", "2"], "]"}], "+", "1"}]}], 
+         "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"array", "\[LeftDoubleBracket]", 
+         RowBox[{
+          RowBox[{"-", "4"}], ";;", 
+          RowBox[{"-", "2"}]}], "\[RightDoubleBracket]"}]}], "}"}], "]"}], 
+     "]"}]}], "\[IndentingNewLine]", ")"}]}]], "Input",
+ CellChangeTimes->{{3.7050768010892534`*^9, 3.705076924921897*^9}, {
+  3.7050769882465067`*^9, 3.7050769945963993`*^9}, {3.705078332823759*^9, 
+  3.705078366589858*^9}},ExpressionUUID->"5ae30aef-7bf9-4d4e-8fb7-\
+c37811db1125"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"DataProps", "[", "data_", "]"}], ":=", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AudioMeasurements", "[", 
+     RowBox[{"data", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<Max\>\"", ",", "\"\<MaxAbs\>\"", ",", "\"\<Min\>\"", ",", 
+        "\"\<MinAbs\>\"", ",", "\"\<Mean\>\"", ",", "\"\<Median\>\"", ",", 
+        "\"\<ApproximateMedian\>\"", ",", "\"\<StandardDeviation\>\"", ",", 
+        "\"\<Total\>\"", ",", "\"\<Loudness\>\"", ",", "\"\<LoudnessEBU\>\"", 
+        ",", "\"\<LoudnessRangeEBU\>\"", ",", "\"\<Power\>\"", ",", 
+        "\"\<RMSAmplitude\>\"", ",", "\"\<CrestFactor\>\"", ",", 
+        "\"\<PeakToAveragePowerRatio\>\"", ",", "\"\<TemporalCentroid\>\"", 
+        ",", "\"\<ZeroCrossingRate\>\"", ",", "\"\<SpectralCentroid\>\"", 
+        ",", "\"\<SpectralCrest\>\"", ",", "\"\<SpectralFlatness\>\"", ",", 
+        "\"\<SpectralKurtosis\>\"", ",", "\"\<SpectralRollOff\>\"", ",", 
+        "\"\<SpectralSkewness\>\"", ",", "\"\<SpectralSpread\>\""}], "}"}], 
+      ",", "Rule"}], "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"AudioLocalMeasurements", "[", 
+     RowBox[{"data", ",", 
+      RowBox[{"{", 
+       RowBox[{"\"\<MFCC\>\"", ",", "5", ",", "12", ",", "5", ",", 
+        RowBox[{"IntegerPart", "[", 
+         FractionBox["11025", "2"], "]"}]}], "}"}], ",", "Rule"}], "]"}]}], 
+   "\[IndentingNewLine]", "}"}]}]], "Input",
+ CellChangeTimes->{{3.7049076865719414`*^9, 3.7049077014326296`*^9}, {
+   3.704908855578707*^9, 3.7049090227799053`*^9}, 3.704909077098573*^9, {
+   3.7049091176445436`*^9, 3.704909118274622*^9}, {3.7049091501664925`*^9, 
+   3.7049091598008213`*^9}, {3.70495147340358*^9, 3.704951481071198*^9}, {
+   3.7049515684353356`*^9, 3.704951582354268*^9}, 3.70558150844007*^9, 
+   3.7055826185990753`*^9, 3.7055833370050783`*^9, {3.705641915987917*^9, 
+   3.7056419569412384`*^9}, {3.7056438060085893`*^9, 
+   3.7056438668106217`*^9}, {3.705644012303114*^9, 3.7056440293957767`*^9}, {
+   3.7056440642634583`*^9, 3.7056441307341948`*^9}, {3.705644280767068*^9, 
+   3.7056442877924232`*^9}, {3.7056443318205233`*^9, 3.705644348279685*^9}, {
+   3.705644454457774*^9, 3.7056444569225225`*^9}, {3.7057265435138216`*^9, 
+   3.705726554911687*^9}, 3.7057267416708913`*^9, 3.705727905765411*^9, {
+   3.705734837146983*^9, 3.7057348432152023`*^9}, {3.7058520280816956`*^9, 
+   3.7058520285360584`*^9}, {3.705859368255082*^9, 
+   3.705859378684104*^9}},ExpressionUUID->"560a5388-14ce-449b-8c60-\
+145e493635b2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"DumpSongAudioMeasurementsTable", "[", 
+   RowBox[{"data_", ",", 
+    RowBox[{"uri_:", "\"\<D:\\\\Dumps\>\""}], ",", "name_"}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "uriString", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"uriString", "=", 
+     RowBox[{
+     "uri", "<>", "\"\<\\\\\>\"", "<>", "name", "<>", 
+      "\"\<AudioMeasurements.wdx\>\""}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringTemplate", "[", "\"\<``\>\"", "]"}], "[", "uriString", 
+       "]"}], ",", "data"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.7055154308997707`*^9, 3.705515469879619*^9}, {
+   3.7055165263307695`*^9, 3.705516585540799*^9}, 3.7055169719895287`*^9, {
+   3.705563729438651*^9, 3.705563757039472*^9}, {3.7055691884069624`*^9, 
+   3.705569203326147*^9}},ExpressionUUID->"ab5762f5-3938-4db5-8baa-\
+c9e31e193c86"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GetSongAudioMeasurementsTable", "[", 
+   RowBox[{
+    RowBox[{"uri_:", "\"\<D:\\\\Dumps\>\""}], ",", "name_"}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "uriString", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"uriString", "=", 
+     RowBox[{
+     "uri", "<>", "\"\<\\\\\>\"", "<>", "name", "<>", 
+      "\"\<AudioMeasurements.wdx\>\""}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringTemplate", "[", "\"\<``\>\"", "]"}], "[", "uriString", 
+       "]"}], ",", "\"\<WDX\>\""}], "]"}]}], "\[IndentingNewLine]", 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.7055637403694363`*^9, 3.7055637651407833`*^9}, 
+   3.705564471147911*^9, 3.7055649971740465`*^9, {3.7055691912092524`*^9, 
+   3.705569198187191*^9}},ExpressionUUID->"22687dac-d2c7-4dc7-9cde-\
+c6cfed20feb9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GetMetaTable", "[", "uri_", "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "uriString", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"uriString", "=", 
+     RowBox[{"uri", "<>", "\"\<\\\\Meta_table.wdx\>\""}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringTemplate", "[", "\"\<``\>\"", "]"}], "[", "uriString", 
+       "]"}], ",", "\"\<WDX\>\""}], "]"}]}], "\[IndentingNewLine]", 
+   ")"}]}]], "Input",
+ CellChangeTimes->{
+  3.7055637619562645`*^9},ExpressionUUID->"82058608-3d90-4115-b071-\
+5120d57bfde6"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"GetDirTable", "[", "uri_", "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "uriString", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"uriString", "=", 
+     RowBox[{"uri", "<>", "\"\<\\\\DIRs_table.wdx\>\""}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Import", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringTemplate", "[", "\"\<``\>\"", "]"}], "[", "uriString", 
+       "]"}], ",", "\"\<WDX\>\""}], "]"}]}], "\[IndentingNewLine]", 
+   ")"}]}]], "Input",
+ CellChangeTimes->{
+  3.7055637633723936`*^9},ExpressionUUID->"da81bce4-ee24-40c0-aee6-\
+d44c90939657"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Initial Values", "Section",
+ CellChangeTimes->{{3.7003935515327797`*^9, 
+  3.7003935580304313`*^9}},ExpressionUUID->"eec0d5fb-4a92-4a44-b125-\
+4b2d17abd3c2"],
+
+Cell[CellGroupData[{
+
+Cell["Get Locations", "Subsection",
+ CellChangeTimes->{
+  3.7004003639456186`*^9, {3.704951296683052*^9, 3.704951314136365*^9}, {
+   3.704957202122013*^9, 3.704957208191615*^9}, {3.705216588321622*^9, 
+   3.7052165923087177`*^9}},ExpressionUUID->"c1ab6c57-8396-4c7c-84d2-\
+fef79262e9b5"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "GenresLocations", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"GenresLocations", "=", 
+   RowBox[{"{", "}"}]}], ";"}]}], "Input",ExpressionUUID->"82589003-bec4-4b99-\
+9749-395658eef077"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "location", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"FileNameSetter", "[", 
+  RowBox[{
+   RowBox[{"Dynamic", "[", "location", "]"}], ",", "\"\<OpenList\>\""}], 
+  "]"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{
+  3.7052164525287075`*^9},ExpressionUUID->"179f3714-8d49-44c7-8510-\
+4968750ce8ec"],
+
+Cell[BoxData[
+ TemplateBox[{Dynamic[$CellContext`location],"OpenList",All},
+  "FileNameSetterBoxes"]], "Output",
+ CellChangeTimes->{
+  3.705295345078289*^9, {3.705295405098972*^9, 3.705295456717975*^9}, 
+   3.705298341347013*^9, {3.705298816571849*^9, 3.70529888021636*^9}, 
+   3.705307844835219*^9, {3.7053078798504324`*^9, 3.705307915962713*^9}, {
+   3.7053079695080376`*^9, 3.7053080726472297`*^9}, 3.705380619653565*^9, {
+   3.705380655141176*^9, 3.7053807249305058`*^9}, {3.705515967978467*^9, 
+   3.705516043761339*^9}, {3.705570489308107*^9, 3.705570558060584*^9}, {
+   3.7055773143547025`*^9, 3.7055773697334414`*^9}, {3.705651381169077*^9, 
+   3.7056514361746445`*^9}, 3.705726587031068*^9, {3.705726623739241*^9, 
+   3.7057266536960697`*^9}, {3.7057266909765277`*^9, 
+   3.7057267023354397`*^9}, {3.7057279995233974`*^9, 
+   3.7057280510764723`*^9}, {3.7057384924924016`*^9, 3.705738532832328*^9}, 
+   3.7057385841393595`*^9, {3.7058528924616594`*^9, 
+   3.705852931787026*^9}},ExpressionUUID->"3226992c-97e5-4b49-9a80-\
+1a5be6e3f213"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"AppendTo", "[", 
+    RowBox[{"GenresLocations", ",", "location"}], "]"}], ";"}], "\n", 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.7052953402730837`*^9, 
+  3.705295357042575*^9}},ExpressionUUID->"ada8b6ea-04bc-45ec-ad6f-\
+7bef5f6cc520"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"glLength", "=", 
+   RowBox[{"Length", "[", "GenresLocations", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Clear", "[", "genresLocations", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"genresLocations", "=", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"ParallelTable", "[", 
+      RowBox[{
+       RowBox[{"StringSplit", "[", 
+        RowBox[{
+         RowBox[{
+         "GenresLocations", "\[LeftDoubleBracket]", "i", 
+          "\[RightDoubleBracket]"}], ",", "\"\<,\>\""}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", "glLength"}], "}"}]}], "]"}], ",", "1"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Clear", "[", 
+   RowBox[{"GenresLocations", ",", "glLength"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"glLength", "=", 
+   RowBox[{"Length", "[", "genresLocations", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7052164295543504`*^9, 3.7052164511433616`*^9}, {
+   3.705216824408681*^9, 3.705216824846977*^9}, {3.705295325951826*^9, 
+   3.70529536418526*^9}, 3.7055162657040386`*^9, {3.705570170512898*^9, 
+   3.7055701760286665`*^9}},ExpressionUUID->"51612627-9222-464c-9c43-\
+684185792f3f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Audio Settings", "Subsection",
+ CellChangeTimes->{
+  3.7004003639456186`*^9, {3.704951296683052*^9, 3.704951314136365*^9}, {
+   3.704957202122013*^9, 3.704957208191615*^9}, {3.7052165757055264`*^9, 
+   3.7052165767794604`*^9}, {3.7052168438293076`*^9, 3.705216850397092*^9}, {
+   3.7053063702533855`*^9, 
+   3.705306373013156*^9}},ExpressionUUID->"46071648-3b2f-43ae-bc47-\
+c7ba21b3b90a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"newSampleRate", "=", "11025"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"partLength", "=", "10"}], ";"}]}], "Input",ExpressionUUID->\
+"f6f7f21e-99ad-48b0-a363-6fa15989eb90"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Dumping", "Subsection",
+ CellChangeTimes->{
+  3.7004003639456186`*^9, {3.704951296683052*^9, 3.704951314136365*^9}, {
+   3.7049572197956753`*^9, 3.70495723622176*^9}, {3.705133293495863*^9, 
+   3.705133295079049*^9}},ExpressionUUID->"8251b2cc-9ad2-4d1b-8c6d-\
+f2d15c7f7b5f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "dumpUri", "=", 
+   "\"\<D:\\\\Data\\\\University\\\\DIPLOMA\\\\FinalWork\\\\Mathematica\\\\\
+Dumps\>\""}], ";"}]], "Input",ExpressionUUID->"fc1b1d48-1ae1-421e-81f3-\
+23e50a8b7ffa"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Main", "Section",
+ CellChangeTimes->{{3.704951124569542*^9, 
+  3.704951124951274*^9}},ExpressionUUID->"21e45610-dd7b-4bde-804e-\
+0e35e29bbf8d"],
+
+Cell[CellGroupData[{
+
+Cell["Processing data", "Subsection",
+ CellChangeTimes->{
+  3.7004003639456186`*^9, {3.704951296683052*^9, 3.704951314136365*^9}, {
+   3.705081080320301*^9, 3.7050810924398675`*^9}, {3.705306240792512*^9, 
+   3.7053062471253767`*^9}},ExpressionUUID->"7fe8eb42-5082-48b0-ab95-\
+e70e096773bc"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", 
+   RowBox[{"dirTable", ",", "dumpsNumber"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"metaTable", "=", 
+   RowBox[{"GetMetaTable", "[", "dumpUri", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dirTable", "=", 
+   RowBox[{"GetDirTable", "[", "dumpUri", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"dumpsNumber", "=", 
+   RowBox[{"Length", "[", "dirTable", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7053815783865767`*^9, 3.7053815992059927`*^9}, {
+  3.7053816483864293`*^9, 3.7053816485443587`*^9}, {3.705409118583207*^9, 
+  3.7054091419489703`*^9}, {3.7055142198635654`*^9, 3.7055142203125896`*^9}, {
+  3.705514620731694*^9, 3.7055146383439217`*^9}, {3.705516405163171*^9, 
+  3.705516416743291*^9}, {3.7055164614316835`*^9, 
+  3.705516461941081*^9}},ExpressionUUID->"7f616b50-0b17-40cb-bd8e-\
+445761cc5234"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"StartingPoint", "=", "1"}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.705569951315934*^9},ExpressionUUID->"1348684a-1564-4810-a1ad-\
+45a445571dd4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Get", " ", "file", " ", "for", " ", "work"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ParallelDo", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"ClearAll", "[", 
+       RowBox[{
+       "tmpUriString", ",", "audioFile", ",", "resampledAudioFile", ",", 
+        "dividedData", ",", "essentialParts", ",", "channelsNum", ",", 
+        "joinedParts"}], "]"}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"tmpUriString", "=", 
+       RowBox[{
+        RowBox[{"StringTemplate", "[", "\"\<``\>\"", "]"}], "[", 
+        RowBox[{"genresLocations", "\[LeftDoubleBracket]", 
+         RowBox[{"songIter", ",", "1"}], "\[RightDoubleBracket]"}], "]"}]}], 
+      ";", "\[IndentingNewLine]", 
+      RowBox[{"audioFile", "=", 
+       RowBox[{"Audio", "[", "tmpUriString", "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"resampledAudioFile", "=", 
+       RowBox[{"DownSampleAudioFile", "[", 
+        RowBox[{"audioFile", ",", "newSampleRate"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"dividedData", "=", 
+       RowBox[{"AudioPartition", "[", 
+        RowBox[{"resampledAudioFile", ",", "partLength"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"essentialParts", "=", 
+       RowBox[{"TakeMainParts", "[", "dividedData", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"joinedParts", "=", 
+       RowBox[{"AudioJoin", "[", "essentialParts", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Clear", "[", 
+       RowBox[{
+       "dividedData", ",", "resampledAudioFile", ",", "essentialParts"}], 
+       "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"songFeaturesList", "=", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{"DataProps", "[", "joinedParts", "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"DumpSongAudioMeasurementsTable", "[", 
+       RowBox[{"songFeaturesList", ",", 
+        RowBox[{
+        "dirTable", "\[LeftDoubleBracket]", "songIter", 
+         "\[RightDoubleBracket]"}], ",", 
+        RowBox[{
+         RowBox[{
+         "metaTable", "\[LeftDoubleBracket]", "songIter", 
+          "\[RightDoubleBracket]"}], "[", "\"\<Composition\>\"", "]"}]}], 
+       "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"songIter", ",", "\"\< - \>\"", ",", 
+        RowBox[{
+         RowBox[{
+         "metaTable", "\[LeftDoubleBracket]", "songIter", 
+          "\[RightDoubleBracket]"}], "[", "\"\<Genre\>\"", "]"}], ",", 
+        "\"\< - \>\"", ",", 
+        RowBox[{
+         RowBox[{
+         "metaTable", "\[LeftDoubleBracket]", "songIter", 
+          "\[RightDoubleBracket]"}], "[", "\"\<Composition\>\"", "]"}]}], 
+       "]"}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"songIter", ",", "StartingPoint", ",", " ", "dumpsNumber"}], 
+      "}"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ClearAll", "[", "songFeaturesList", "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.7055688915904636`*^9, 3.705568894943813*^9}, {
+  3.7055692936616163`*^9, 3.705569302008922*^9}, {3.7055693365159407`*^9, 
+  3.705569345380967*^9}, {3.70556957453936*^9, 3.705569599001071*^9}, {
+  3.705569700577296*^9, 3.705569809318466*^9}, {3.705570221048694*^9, 
+  3.705570240273878*^9}, {3.705570415564089*^9, 3.7055704172643733`*^9}, {
+  3.7055708058226366`*^9, 3.7055708061134605`*^9}, {3.7056511232415185`*^9, 
+  3.7056512296559014`*^9}, {3.70565126321084*^9, 3.7056513004179993`*^9}, {
+  3.70565133161686*^9, 3.7056513492695303`*^9}, {3.705651486919983*^9, 
+  3.7056515022406225`*^9}},ExpressionUUID->"faa0d1c3-cff7-4446-993a-\
+df8d6e16be35"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1151, 783},
+WindowMargins->{{Automatic, 94}, {6, Automatic}},
+FrontEndVersion->"11.1 for Microsoft Windows (64-bit) (March 13, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 362, 6, 90, "Title", "ExpressionUUID" -> \
+"d75c2021-2f0d-4da8-acaf-7251bbd3d647"],
+Cell[CellGroupData[{
+Cell[967, 32, 83, 0, 43, "Subsection", "ExpressionUUID" -> \
+"57e67597-fd37-4e02-9950-ada93f679c4a"],
+Cell[1053, 34, 246, 8, 68, "Text", "ExpressionUUID" -> \
+"67b9846e-4d8b-4118-b7e2-c17dd77e9f55"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1336, 47, 160, 3, 43, "Subsection", "ExpressionUUID" -> \
+"94cdfd79-941f-4ed2-b0b2-b67a4d069dff"],
+Cell[1499, 52, 499, 9, 30, "Input", "ExpressionUUID" -> \
+"14acf2ff-68b7-4533-a552-ba174f318cae"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2035, 66, 154, 3, 63, "Section", "ExpressionUUID" -> \
+"bd7889dc-611b-4e7b-90b7-3280f1d693f8"],
+Cell[2192, 71, 800, 14, 126, "Input", "ExpressionUUID" -> \
+"46996e5e-38a1-437b-99f2-a703d044e37f"],
+Cell[2995, 87, 1142, 27, 126, "Input", "ExpressionUUID" -> \
+"5bd2f1b9-ae8c-47cf-951d-a1f201552382"],
+Cell[4140, 116, 1489, 35, 164, "Input", "ExpressionUUID" -> \
+"51d45a67-53de-4855-b6cb-17eedbefdd34"],
+Cell[5632, 153, 1325, 31, 184, "Input", "ExpressionUUID" -> \
+"5ae30aef-7bf9-4d4e-8fb7-c37811db1125"],
+Cell[6960, 186, 2511, 43, 190, "Input", "ExpressionUUID" -> \
+"560a5388-14ce-449b-8c60-145e493635b2"],
+Cell[9474, 231, 1003, 22, 107, "Input", "ExpressionUUID" -> \
+"ab5762f5-3938-4db5-8baa-c9e31e193c86"],
+Cell[10480, 255, 916, 21, 107, "Input", "ExpressionUUID" -> \
+"22687dac-d2c7-4dc7-9cde-c6cfed20feb9"],
+Cell[11399, 278, 660, 17, 107, "Input", "ExpressionUUID" -> \
+"82058608-3d90-4115-b071-5120d57bfde6"],
+Cell[12062, 297, 659, 17, 107, "Input", "ExpressionUUID" -> \
+"da81bce4-ee24-40c0-aee6-d44c90939657"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12758, 319, 163, 3, 63, "Section", "ExpressionUUID" -> \
+"eec0d5fb-4a92-4a44-b125-4b2d17abd3c2"],
+Cell[CellGroupData[{
+Cell[12946, 326, 287, 5, 43, "Subsection", "ExpressionUUID" -> \
+"c1ab6c57-8396-4c7c-84d2-fef79262e9b5"],
+Cell[13236, 333, 253, 7, 50, "Input", "ExpressionUUID" -> \
+"82589003-bec4-4b99-9749-395658eef077"],
+Cell[CellGroupData[{
+Cell[13514, 344, 345, 8, 69, "Input", "ExpressionUUID" -> \
+"179f3714-8d49-44c7-8510-4968750ce8ec"],
+Cell[13862, 354, 1045, 17, 42, "Output", "ExpressionUUID" -> \
+"3226992c-97e5-4b49-9a80-1a5be6e3f213"]
+}, Open  ]],
+Cell[14922, 374, 299, 8, 69, "Input", "ExpressionUUID" -> \
+"ada8b6ea-04bc-45ec-ad6f-7bef5f6cc520"],
+Cell[15224, 384, 1250, 33, 126, "Input", "ExpressionUUID" -> \
+"51612627-9222-464c-9c43-684185792f3f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16511, 422, 394, 7, 43, "Subsection", "ExpressionUUID" -> \
+"46071648-3b2f-43ae-bc47-c7ba21b3b90a"],
+Cell[16908, 431, 220, 5, 50, "Input", "ExpressionUUID" -> \
+"f6f7f21e-99ad-48b0-a363-6fa15989eb90"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17165, 441, 280, 5, 43, "Subsection", "ExpressionUUID" -> \
+"8251b2cc-9ad2-4d1b-8c6d-f2d15c7f7b5f"],
+Cell[17448, 448, 218, 6, 30, "Input", "ExpressionUUID" -> \
+"fc1b1d48-1ae1-421e-81f3-23e50a8b7ffa"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17715, 460, 149, 3, 63, "Section", "ExpressionUUID" -> \
+"21e45610-dd7b-4bde-804e-0e35e29bbf8d"],
+Cell[CellGroupData[{
+Cell[17889, 467, 291, 5, 43, "Subsection", "ExpressionUUID" -> \
+"7fe8eb42-5082-48b0-ab95-e70e096773bc"],
+Cell[18183, 474, 924, 22, 88, "Input", "ExpressionUUID" -> \
+"7f616b50-0b17-40cb-bd8e-445761cc5234"],
+Cell[19110, 498, 181, 5, 30, "Input", "ExpressionUUID" -> \
+"1348684a-1564-4810-a1ad-45a445571dd4"],
+Cell[19294, 505, 3824, 82, 468, "Input", "ExpressionUUID" -> \
+"faa0d1c3-cff7-4446-993a-df8d6e16be35"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

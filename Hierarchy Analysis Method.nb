@@ -1,0 +1,2601 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     98374,       2592]
+NotebookOptionsPosition[     93860,       2443]
+NotebookOutlinePosition[     94430,       2465]
+CellTagsIndexPosition[     94387,       2462]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Hierarchy Analysis Method", "Title",
+ CellChangeTimes->{{3.700880821241563*^9, 3.7008808394138207`*^9}, {
+  3.7008851116581087`*^9, 3.7008851295678463`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Author", "Subsection"],
+
+Cell["\<\
+Yuriy V. Garev
+st. of gr. AM-13-1
+April 10, 2017\
+\>", "Text",
+ CellChangeTimes->{{3.700880728900569*^9, 3.700880801217671*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Initialization", "Subsection"],
+
+Cell[BoxData[
+ RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.70088071228598*^9, {3.7008964885147495`*^9, 3.7008964886759834`*^9}, {
+   3.7008965559870205`*^9, 3.7008965567258873`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Variables", "Section",
+ CellChangeTimes->{{3.7003935515327797`*^9, 3.7003935580304313`*^9}, {
+  3.7008229537069254`*^9, 3.7008229578538074`*^9}, {3.700823011866987*^9, 
+  3.7008230152828674`*^9}, {3.7008817499588666`*^9, 3.7008817673146477`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"RI", "=", 
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"2", "3", "4", "5", "6", "7", "8", "9", "10"},
+       {"0.00", "0.58", "0.9", "1.12", "1.24", "1.32", "1.41", "1.45", "1.49"}
+      }], "\[NoBreak]", ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CriteriaMatrix", "=", 
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"1", "3", 
+        FractionBox["1", "3"], 
+        FractionBox["1", "5"], "5"},
+       {
+        FractionBox["1", "3"], "1", 
+        FractionBox["1", "5"], 
+        FractionBox["1", "7"], "3"},
+       {"3", "5", "1", 
+        FractionBox["1", "3"], "7"},
+       {"5", "7", "3", "1", "9"},
+       {
+        FractionBox["1", "5"], 
+        FractionBox["1", "3"], 
+        FractionBox["1", "7"], 
+        FractionBox["1", "9"], "1"}
+      }], "\[NoBreak]", ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"TCriteriaMatrix", "=", 
+    RowBox[{"Transpose", "[", "CriteriaMatrix", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"A1", "=", 
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {"1", 
+       FractionBox["1", "7"], 
+       FractionBox["1", "5"]},
+      {"7", "1", "5"},
+      {"5", 
+       FractionBox["1", "5"], "1"}
+     }], "\[NoBreak]", ")"}]}], ";", " ", 
+  RowBox[{"TA1", "=", 
+   RowBox[{"Transpose", "[", "A1", "]"}]}], ";", " ", 
+  RowBox[{"A2", "=", 
+   RowBox[{"(", "\[NoBreak]", GridBox[{
+      {"1", "7", "5"},
+      {
+       FractionBox["1", "7"], "1", 
+       FractionBox["1", "5"]},
+      {
+       FractionBox["1", "5"], "5", "1"}
+     }], "\[NoBreak]", ")"}]}], ";", " ", 
+  RowBox[{"TA2", "=", 
+   RowBox[{"Transpose", "[", "A2", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"A3", "=", 
+    RowBox[{"(", "\[NoBreak]", 
+     RowBox[{"\[NoBreak]", GridBox[{
+        {"1", "3", 
+         FractionBox["1", "3"]},
+        {
+         FractionBox["1", "3"], "1", 
+         FractionBox["1", "5"]},
+        {"3", "5", "1"}
+       }]}], "\[NoBreak]", ")"}]}], ";", 
+   RowBox[{"TA3", "=", 
+    RowBox[{"Transpose", "[", "A3", "]"}]}], ";", " ", 
+   RowBox[{"A4", "=", 
+    RowBox[{"(", "\[NoBreak]", 
+     RowBox[{"\[NoBreak]", GridBox[{
+        {"1", 
+         FractionBox["1", "7"], 
+         FractionBox["1", "5"]},
+        {"7", "1", "5"},
+        {"5", 
+         FractionBox["1", "5"], "1"}
+       }]}], "\[NoBreak]", ")"}]}], ";", 
+   RowBox[{"TA4", "=", 
+    RowBox[{"Transpose", "[", "A4", "]"}]}], ";"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"A5", "=", 
+    RowBox[{"(", "\[NoBreak]", GridBox[{
+       {"1", 
+        FractionBox["1", "5"], 
+        FractionBox["1", "3"]},
+       {"5", "1", "3"},
+       {"3", 
+        FractionBox["1", "3"], "1"}
+      }], "\[NoBreak]", ")"}]}], ";", 
+   RowBox[{"TA5", "=", 
+    RowBox[{"Transpose", "[", "A5", "]"}]}], ";"}], " ", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Ai", "=", 
+   RowBox[{"{", 
+    RowBox[{"A1", ",", "A2", ",", "A3", ",", "A4", ",", "A5"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TAi", "=", 
+   RowBox[{"{", 
+    RowBox[{"TA1", ",", "TA2", ",", "TA3", ",", "TA4", ",", "TA5"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TCriteriaMatrix", "=", 
+   RowBox[{"Transpose", "[", "CriteriaMatrix", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mCM", "=", 
+   RowBox[{"Length", "[", "CriteriaMatrix", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"mAi", "=", 
+   RowBox[{"Length", "[", "A1", "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.700821371367777*^9, 3.7008214199325933`*^9}, {
+   3.7008214870994663`*^9, 3.7008214884307904`*^9}, {3.7008216154888735`*^9, 
+   3.700821639905908*^9}, {3.700821826518332*^9, 3.7008218538366356`*^9}, {
+   3.7008219665193195`*^9, 3.7008219671469545`*^9}, {3.7008220900738573`*^9, 
+   3.7008220931088495`*^9}, {3.7008227881131105`*^9, 3.700822788359902*^9}, 
+   3.700822987426092*^9, {3.700823033961208*^9, 3.700823055170887*^9}, {
+   3.7008237180535717`*^9, 3.7008237184377437`*^9}, {3.700834457494782*^9, 
+   3.700834473148225*^9}, {3.7008852021699424`*^9, 3.7008852297435627`*^9}, {
+   3.700885282957546*^9, 3.700885612909217*^9}, {3.700891499280203*^9, 
+   3.7008916139825764`*^9}, {3.700891849565107*^9, 3.700891888556632*^9}, {
+   3.7008919195179853`*^9, 3.7008920980526285`*^9}, {3.700892206314252*^9, 
+   3.7008922076784315`*^9}, 3.700892564615302*^9, {3.70089287852629*^9, 
+   3.7008929529849944`*^9}, {3.700892985071663*^9, 3.7008933320571704`*^9}, {
+   3.700893387048399*^9, 3.7008933953730745`*^9}, {3.7008941682550716`*^9, 
+   3.7008942208901052`*^9}, 3.7008943187682576`*^9, {3.700895175326625*^9, 
+   3.70089520651962*^9}, {3.7008985754312997`*^9, 3.700898627196865*^9}, {
+   3.7009049771806993`*^9, 3.700905042082168*^9}, 3.7009059232510567`*^9, {
+   3.7009059986707726`*^9, 3.700906005912746*^9}, {3.7009071156658373`*^9, 
+   3.7009071203204594`*^9}, {3.7009078640481434`*^9, 
+   3.7009078713989286`*^9}, {3.700908084039285*^9, 3.7009080876413813`*^9}, {
+   3.7009083210625935`*^9, 3.7009083270898333`*^9}, {3.700909007802794*^9, 
+   3.7009090187943244`*^9}, {3.7038235098385305`*^9, 
+   3.7038235157838683`*^9}, {3.703824481453681*^9, 3.7038245677063274`*^9}, {
+   3.703824688549154*^9, 3.703824690332551*^9}, {3.703824757707202*^9, 
+   3.7038247638219337`*^9}, {3.703824942442343*^9, 3.7038249753021755`*^9}, {
+   3.7038250848883896`*^9, 3.7038252587243795`*^9}, {3.7040093280358405`*^9, 
+   3.704009332633643*^9}, {3.7040093762924128`*^9, 3.704009407499178*^9}, {
+   3.7040094410300765`*^9, 3.7040094983472595`*^9}, {3.70400956314065*^9, 
+   3.7040095655410566`*^9}, {3.7040100788847136`*^9, 3.704010145845208*^9}, {
+   3.7040107679205637`*^9, 3.7040108386342287`*^9}, {3.704013383955812*^9, 
+   3.7040133870500174`*^9}, 3.704013426150075*^9, {3.704013480553509*^9, 
+   3.70401354253393*^9}, {3.7040135814938188`*^9, 3.7040136130734835`*^9}, {
+   3.7040137101675787`*^9, 3.70401375273279*^9}, {3.704014040863491*^9, 
+   3.704014043591866*^9}, {3.7040141147900624`*^9, 3.704014129993898*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Code", "Section",
+ CellChangeTimes->{{3.7003935515327797`*^9, 3.7003935580304313`*^9}, {
+  3.7008229537069254`*^9, 3.7008229578538074`*^9}, {3.700833052002248*^9, 
+  3.7008330520606546`*^9}, {3.700885648004597*^9, 3.700885648430627*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"GeomMean", "[", 
+    RowBox[{"List_", ",", "Matrix_"}], "]"}], ":=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"n", "=", 
+      RowBox[{"Length", "[", "Matrix", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "\[LessEqual]", " ", "n"}], ",", 
+       RowBox[{"++", "i"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"List", ",", 
+         RowBox[{"N", "[", 
+          RowBox[{"GeometricMean", "[", 
+           RowBox[{"Matrix", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}], ";"}], ")"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetAttributes", "[", 
+    RowBox[{"GeomMean", ",", "HoldFirst"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"GeomMeanSum", "[", "GeometricMeans_", "]"}], ":=", 
+    RowBox[{"(", 
+     RowBox[{"Total", "[", "GeometricMeans", "]"}], ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PrioritiesVector", "[", 
+    RowBox[{"List_", ",", "GeometricMeans_", ",", "GeomMeanSum_"}], "]"}], ":=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"n", "=", 
+      RowBox[{"Length", "[", "GeometricMeans", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "\[LessEqual]", " ", "n"}], ",", 
+       RowBox[{"++", "i"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"List", ",", 
+         RowBox[{"N", "[", 
+          FractionBox[
+           RowBox[{"GeometricMeans", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "GeomMeanSum"], "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetAttributes", "[", 
+    RowBox[{"PrioritiesVector", ",", "HoldFirst"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ColumnNumSum", "[", 
+    RowBox[{"List_", ",", "TMatrix_"}], "]"}], ":=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"n", "=", 
+      RowBox[{"Length", "[", "TMatrix", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "\[LessEqual]", " ", "n"}], ",", 
+       RowBox[{"++", "i"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"List", ",", 
+         RowBox[{"N", "[", 
+          RowBox[{"Total", "[", 
+           RowBox[{"TMatrix", "[", 
+            RowBox[{"[", "i", "]"}], "]"}], "]"}], "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}], ")"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"SetAttributes", "[", 
+    RowBox[{"ColumnNumSum", ",", "HoldFirst"}], "]"}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"\[Lambda]", "[", 
+     RowBox[{"PrioritiesVector_", ",", "ColumnNumSumList_"}], "]"}], ":=", 
+    RowBox[{"(", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"n", "=", 
+       RowBox[{"Length", "[", "PrioritiesVector", "]"}]}], ";", 
+      RowBox[{"sum", "=", "0"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "\[LessEqual]", " ", "n"}], ",", 
+        RowBox[{"++", "i"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"sum", "+=", 
+         RowBox[{
+          RowBox[{"PrioritiesVector", "[", 
+           RowBox[{"[", "i", "]"}], "]"}], "*", 
+          RowBox[{"ColumnNumSumList", "[", 
+           RowBox[{"[", "i", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", "]"}],
+       ";", "\[IndentingNewLine]", "sum"}], ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CI", "[", 
+     RowBox[{"\[Lambda]_", ",", "m_"}], "]"}], ":=", 
+    RowBox[{"(", 
+     FractionBox[
+      RowBox[{"\[Lambda]", "-", "m"}], 
+      RowBox[{"m", "-", "1"}]], ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"CR", "[", 
+     RowBox[{"CI_", ",", "m_"}], "]"}], ":=", 
+    RowBox[{"(", 
+     FractionBox["CI", 
+      RowBox[{"RI", "[", 
+       RowBox[{"[", 
+        RowBox[{"2", ",", 
+         RowBox[{"m", "-", "1"}]}], "]"}], "]"}]], ")"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"IfConcerted", "[", "CR_", "]"}], "=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"CR", "\[LessEqual]", " ", "0.2"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+        "\"\<The expert's preferences are WELL concerted!\>\"", ",", "Bold", 
+         ",", "Larger"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+        "\"\<The expert's preferences are BAD concerted!\>\"", ",", "Bold", 
+         ",", "Larger"}], "]"}], "]"}]}], "\[IndentingNewLine]", "]"}], 
+    "\[IndentingNewLine]", ")"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.700821371367777*^9, 3.7008214199325933`*^9}, {
+   3.7008214870994663`*^9, 3.7008214884307904`*^9}, {3.7008216154888735`*^9, 
+   3.700821639905908*^9}, {3.700821826518332*^9, 3.7008218538366356`*^9}, {
+   3.7008219665193195`*^9, 3.7008219671469545`*^9}, {3.7008220900738573`*^9, 
+   3.7008220931088495`*^9}, {3.7008227881131105`*^9, 3.700822788359902*^9}, 
+   3.700822987426092*^9, {3.7008230600877457`*^9, 3.700823066032308*^9}, {
+   3.7008236641936035`*^9, 3.7008236665785465`*^9}, {3.7008237226135845`*^9, 
+   3.700823724141513*^9}, {3.7008283157486634`*^9, 3.7008283179370985`*^9}, 
+   3.7008284047555466`*^9, {3.700828681904001*^9, 3.700828689097372*^9}, {
+   3.70083466813262*^9, 3.7008346705245066`*^9}, 3.700834716659142*^9, {
+   3.700841140431372*^9, 3.700841169048835*^9}, {3.7008412170210752`*^9, 
+   3.7008412183180046`*^9}, {3.70084277753931*^9, 3.7008427812232647`*^9}, {
+   3.7008862927166963`*^9, 3.7008863354080276`*^9}, {3.700886397208399*^9, 
+   3.7008865694472475`*^9}, {3.700887557738489*^9, 3.7008876998078547`*^9}, {
+   3.7008878648464003`*^9, 3.700887868193805*^9}, {3.7008881587589407`*^9, 
+   3.700888172160837*^9}, {3.7008882030281906`*^9, 3.700888287805341*^9}, {
+   3.7008884640405507`*^9, 3.700888476604477*^9}, {3.700888530764222*^9, 
+   3.7008886636353397`*^9}, 3.7008887282306986`*^9, {3.7008887665455604`*^9, 
+   3.7008887690100183`*^9}, {3.700888862723888*^9, 3.700888864902089*^9}, {
+   3.7008888987284765`*^9, 3.7008889082756586`*^9}, {3.70088963879568*^9, 
+   3.700889655263897*^9}, {3.7008896936641755`*^9, 3.7008897491218357`*^9}, {
+   3.7008898120814934`*^9, 3.7008901265791817`*^9}, {3.7008901647843857`*^9, 
+   3.7008901691181874`*^9}, {3.7008902062137914`*^9, 3.700890211775215*^9}, {
+   3.7008922610394516`*^9, 3.7008922678619385`*^9}, 3.700892325712062*^9, {
+   3.700892358301654*^9, 3.700892375369395*^9}, {3.700892419065361*^9, 
+   3.70089253251449*^9}, {3.7008934952257032`*^9, 3.70089356518269*^9}, {
+   3.700893774564947*^9, 3.7008939205453424`*^9}, {3.700894057945397*^9, 
+   3.7008940741474304`*^9}, {3.700894124495689*^9, 3.700894149291646*^9}, {
+   3.700894274552271*^9, 3.70089428235402*^9}, {3.700894320593835*^9, 
+   3.700894393469468*^9}, {3.700894434430631*^9, 3.700894477928795*^9}, {
+   3.700894508100627*^9, 3.700894544060356*^9}, {3.700894609716934*^9, 
+   3.700894617654358*^9}, {3.7008955923995247`*^9, 3.7008955990402217`*^9}, {
+   3.700895709980932*^9, 3.7008958607485065`*^9}, {3.7008958946771727`*^9, 
+   3.7008959041781893`*^9}, {3.700895940049924*^9, 3.700895952007582*^9}, {
+   3.7008959863074727`*^9, 3.7008960417515526`*^9}, {3.7008962101459255`*^9, 
+   3.7008962103622456`*^9}, {3.7008965601583014`*^9, 
+   3.7008965885916104`*^9}, {3.7008966717283335`*^9, 3.700896696260375*^9}, {
+   3.700896743196126*^9, 3.700896743371808*^9}, {3.700897113255293*^9, 
+   3.7008971900645113`*^9}, 3.700897226547803*^9, {3.7008976826413937`*^9, 
+   3.7008976933519545`*^9}, {3.70089773118884*^9, 3.70089773500694*^9}, {
+   3.700898782061412*^9, 3.7008988220739946`*^9}, {3.700898953232684*^9, 
+   3.700898959033413*^9}, 3.700904709566554*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Realization", "Section",
+ CellChangeTimes->{{3.7003935515327797`*^9, 3.7003935580304313`*^9}, {
+  3.7008229537069254`*^9, 3.7008229578538074`*^9}, {3.700823526394377*^9, 
+  3.7008235264788756`*^9}, {3.7008330468301334`*^9, 3.7008330484820213`*^9}, {
+  3.700888667703656*^9, 3.7008886697825036`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Criteria", "Subsection",
+ CellChangeTimes->{{3.700900784071077*^9, 3.700900785699923*^9}, {
+  3.700900995782113*^9, 3.7009009999213266`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"Style", "[", 
+    RowBox[{"\"\<Criteria:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+    "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"CriteriaGeomMeanByTheRow", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"GeomMean", "[", 
+   RowBox[{"CriteriaGeomMeanByTheRow", ",", "CriteriaMatrix"}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CriteriaGeomMeanSum", "=", 
+    RowBox[{"GeomMeanSum", "[", "CriteriaGeomMeanByTheRow", "]"}]}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"CriteriaPrioritiesVectors", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"PrioritiesVector", "[", 
+    RowBox[{
+    "CriteriaPrioritiesVectors", ",", "\n", "CriteriaGeomMeanByTheRow", ",", 
+     "\n", "CriteriaGeomMeanSum"}], "]"}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"CriteriaColumnNumSum", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"ColumnNumSum", "[", 
+    RowBox[{"CriteriaColumnNumSum", ",", "TCriteriaMatrix"}], "]"}], ";"}], 
+  "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"Criteria\[Lambda]", "=", 
+   RowBox[{"\[Lambda]", "[", 
+    RowBox[{"CriteriaPrioritiesVectors", ",", "CriteriaColumnNumSum"}], 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"CriteriaCI", "=", 
+   RowBox[{"CI", "[", 
+    RowBox[{"Criteria\[Lambda]", ",", "mCM"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"CriteriaCR", "=", 
+    RowBox[{"CR", "[", 
+     RowBox[{"CriteriaCI", ",", "mCM"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<CriteriaGeomMeanByTheRow: \>\"", ",", 
+    RowBox[{"CriteriaGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{
+   "\"\<CriteriaGeomMeanSum:        \>\"", ",", "CriteriaGeomMeanSum", ",", 
+    "\"\<\\n\>\""}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<CriteriaPrioritiesVectors: \>\"", ",", 
+    RowBox[{"CriteriaPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<CriteriaColumnNumSum:       \>\"", ",", 
+    RowBox[{"CriteriaColumnNumSum", "//", "MatrixForm"}]}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Criteria\[Lambda]"}], "]"}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", "\n", 
+   RowBox[{
+   "\"\<CriteriaCI: \>\"", ",", "CriteriaCI", ",", "\"\<\\n\>\"", ",", "\n", 
+    "\"\<CriteriaCR: \>\"", ",", "CriteriaCR"}], "\n", "]"}], ";"}], "\n", 
+ RowBox[{"IfConcerted", "[", "CriteriaCR", "]"}], "\n"}], "Input",
+ CellChangeTimes->{{3.7009008051259956`*^9, 3.700900817996978*^9}, {
+  3.7009010045126925`*^9, 3.7009010146793857`*^9}, {3.7009029180977793`*^9, 
+  3.700902945959875*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ StyleBox["\<\"Criteria:\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[1, 0, 0],
+  FrontFaceColor->RGBColor[1, 0, 0],
+  BackFaceColor->RGBColor[1, 0, 0],
+  GraphicsColor->RGBColor[1, 0, 0],
+  FontSize->Larger,
+  FontWeight->Bold,
+  FontColor->RGBColor[1, 0, 0]]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.704014135412428*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"1.`"},
+        {"0.4911186099187366`"},
+        {"2.0361680046403983`"},
+        {"3.936283427035352`"},
+        {"0.25404674702328517`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["CriteriaGeomMeanByTheRow: ", 
+   MatrixForm[{1., 0.4911186099187366, 2.0361680046403983`, 3.936283427035352,
+     0.25404674702328517`}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.7040141354239273`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "7.717616788617772`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["CriteriaGeomMeanSum:        ", 7.717616788617772, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.704014135426426*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaPrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.12957367894643812`"},
+        {"0.06363604508623136`"},
+        {"0.2638337793142845`"},
+        {"0.5100387250168639`"},
+        {"0.03291777163618213`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["CriteriaPrioritiesVectors: ", 
+   MatrixForm[{0.12957367894643812`, 0.06363604508623136, 0.2638337793142845, 
+    0.5100387250168639, 0.03291777163618213}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.704014135429426*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"9.533333333333333`"},
+        {"16.333333333333332`"},
+        {"4.6761904761904765`"},
+        {"1.7873015873015874`"},
+        {"25.`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["CriteriaColumnNumSum:       ", 
+   MatrixForm[{9.533333333333333, 16.333333333333332`, 4.6761904761904765`, 
+    1.7873015873015874`, 25.}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.7040141354324265`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "5.242932128870424`"}],
+  SequenceForm["Criteria\[Lambda]: ", 5.242932128870424],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.7040141354354253`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", 
+   "0.060733032217606064`", "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.054225921622862557`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.060733032217606064`, "\n", "CriteriaCR: ", 
+   0.054225921622862557`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.704014135438426*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.703825264527781*^9, 3.7040095049527793`*^9, 3.7040095728334274`*^9, {
+   3.704010147933699*^9, 3.704010169205862*^9}, 3.7040108407764707`*^9, 
+   3.704014135440925*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Alternatives", "Subsection",
+ CellChangeTimes->{{3.700900784071077*^9, 3.700900785699923*^9}, {
+  3.700900847433981*^9, 3.7009008506542044`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ListAltGeomMeanByTheRow", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAltGeomMeanSum", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAltPrioritiesVectors", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAltColumnNumSum", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAlt\[Lambda]", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAltCI", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ListAltCR", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.70090011562591*^9, 3.700900115756098*^9}, {
+   3.700900828208826*^9, 3.700900829241565*^9}, {3.7009008609040947`*^9, 
+   3.700900861445897*^9}, {3.700902350789709*^9, 3.700902350950856*^9}, 
+   3.700904299642211*^9, {3.700906326332883*^9, 3.700906326733108*^9}, {
+   3.7009064016408725`*^9, 3.7009064030250816`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"1", "-", "Alternative"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"AltGeomMeanByTheRow", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltPrioritiesVectors", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltColumnNumSum", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"GeomMean", "[", 
+     RowBox[{"AltGeomMeanByTheRow", ",", 
+      RowBox[{"Ai", "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", 
+     RowBox[{"GeomMeanSum", "[", "AltGeomMeanByTheRow", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrioritiesVector", "[", 
+     RowBox[{
+     "AltPrioritiesVectors", ",", "\[IndentingNewLine]", 
+      "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ColumnNumSum", "[", 
+     RowBox[{"AltColumnNumSum", ",", 
+      RowBox[{"TAi", "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", 
+     RowBox[{"\[Lambda]", "[", 
+      RowBox[{"AltPrioritiesVectors", ",", "AltColumnNumSum"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", 
+     RowBox[{"CI", "[", 
+      RowBox[{"Alt\[Lambda]", ",", "mAi"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", 
+     RowBox[{"CR", "[", 
+      RowBox[{"AltCI", ",", "mAi"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanByTheRow", ",", "AltGeomMeanByTheRow"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanSum", ",", "AltGeomMeanSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltPrioritiesVectors", ",", "AltPrioritiesVectors"}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltColumnNumSum", ",", "AltColumnNumSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAlt\[Lambda]", ",", "Alt\[Lambda]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCI", ",", "AltCI"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCR", ",", "AltCR"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+       "\"\<Alternative:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+       "]"}], ",", "1"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeGeomMeanByTheRow: \>\"", ",", 
+      RowBox[{"AltGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<AlternativeGeomMeanSum:        \>\"", ",", "AltGeomMeanSum", ",", 
+      "\"\<\\n\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativePrioritiesVectors: \>\"", ",", 
+      RowBox[{"AltPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeColumnNumSum:       \>\"", ",", 
+      RowBox[{"AltColumnNumSum", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Alt\[Lambda]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<CriteriaCI: \>\"", ",", "AltCI", ",", "\"\<\\n\>\"", ",", 
+      "\"\<CriteriaCR: \>\"", ",", "AltCR"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"IfConcerted", "[", "AltCR", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7008997638078704`*^9, 3.700899772098096*^9}, {
+   3.7009000563422375`*^9, 3.700900060600446*^9}, {3.700900273048408*^9, 
+   3.700900325462158*^9}, {3.7009004164246984`*^9, 3.70090043993026*^9}, {
+   3.7009004788165483`*^9, 3.700900482388403*^9}, {3.700900542897873*^9, 
+   3.700900561768736*^9}, 3.7009006248133183`*^9, {3.700900671031783*^9, 
+   3.700900672727849*^9}, {3.7009011376993914`*^9, 3.700901149698968*^9}, {
+   3.700901185697864*^9, 3.7009012007681584`*^9}, {3.7009020227419987`*^9, 
+   3.7009020263054066`*^9}, {3.700902100155551*^9, 3.7009022958195305`*^9}, {
+   3.7009023547906685`*^9, 3.7009023549639106`*^9}, {3.70090240561098*^9, 
+   3.7009024072552195`*^9}, {3.700903941722704*^9, 3.70090394989458*^9}, {
+   3.700906323349146*^9, 3.700906407727523*^9}, {3.7009086358043413`*^9, 
+   3.7009086362887154`*^9}, {3.7009092627144833`*^9, 3.700909344010251*^9}, {
+   3.700909532996928*^9, 3.7009095338286533`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   StyleBox["\<\"Alternative:\"\>",
+    StripOnInput->False,
+    LineColor->RGBColor[1, 0, 0],
+    FrontFaceColor->RGBColor[1, 0, 0],
+    BackFaceColor->RGBColor[1, 0, 0],
+    GraphicsColor->RGBColor[1, 0, 0],
+    FontSize->Larger,
+    FontWeight->Bold,
+    FontColor->RGBColor[1, 0, 0]], "\[InvisibleSpace]", "1"}],
+  SequenceForm[
+   Style["Alternative:", Bold, Larger, 
+    RGBColor[1, 0, 0]], 1],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141354969273`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.30571070873287987`"},
+        {"3.2710663101885897`"},
+        {"1.`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeGeomMeanByTheRow: ", 
+   MatrixForm[{0.30571070873287987`, 3.2710663101885897`, 1.}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141354999275`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "4.57677701892147`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["AlternativeGeomMeanSum:        ", 4.57677701892147, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141355024257`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativePrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.06679606794672323`"},
+        {"0.7147095645396825`"},
+        {"0.21849436751359427`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativePrioritiesVectors: ", 
+   MatrixForm[{0.06679606794672323, 0.7147095645396825, 
+    0.21849436751359427`}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141355049286`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"13.`"},
+        {"1.3428571428571427`"},
+        {"6.2`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeColumnNumSum:       ", 
+   MatrixForm[{13., 1.3428571428571427`, 6.2}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141355089283`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "3.1827668057021175`"}],
+  SequenceForm["Criteria\[Lambda]: ", 3.1827668057021175`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.704014135511427*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", "0.09138340285105873`",
+    "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.15755759112251505`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.09138340285105873, "\n", "CriteriaCR: ", 
+   0.15755759112251505`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.704014135514927*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.7038252647708344`*^9, 3.704009505340143*^9, 3.704009572911073*^9, {
+   3.7040101480086966`*^9, 3.704010169266362*^9}, 3.704010840852471*^9, 
+   3.7040141355174274`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"2", "-", "Alternative"}], " ", "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum", ",", 
+     "\[IndentingNewLine]", "AltPrioritiesVectors", ",", 
+     "\[IndentingNewLine]", "AltColumnNumSum", ",", "\[IndentingNewLine]", 
+     "Alt\[Lambda]", ",", "\[IndentingNewLine]", "AltCI", ",", 
+     "\[IndentingNewLine]", "AltCR"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanByTheRow", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltPrioritiesVectors", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltColumnNumSum", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"GeomMean", "[", 
+     RowBox[{"AltGeomMeanByTheRow", ",", 
+      RowBox[{"Ai", "[", 
+       RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", 
+     RowBox[{"GeomMeanSum", "[", "AltGeomMeanByTheRow", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrioritiesVector", "[", 
+     RowBox[{
+     "AltPrioritiesVectors", ",", "\[IndentingNewLine]", 
+      "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ColumnNumSum", "[", 
+     RowBox[{"AltColumnNumSum", ",", 
+      RowBox[{"TAi", "[", 
+       RowBox[{"[", "2", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", 
+     RowBox[{"\[Lambda]", "[", 
+      RowBox[{"AltPrioritiesVectors", ",", "AltColumnNumSum"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", 
+     RowBox[{"CI", "[", 
+      RowBox[{"Alt\[Lambda]", ",", "mAi"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", 
+     RowBox[{"CR", "[", 
+      RowBox[{"AltCI", ",", "mAi"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanByTheRow", ",", "AltGeomMeanByTheRow"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanSum", ",", "AltGeomMeanSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltPrioritiesVectors", ",", "AltPrioritiesVectors"}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltColumnNumSum", ",", "AltColumnNumSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAlt\[Lambda]", ",", "Alt\[Lambda]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCI", ",", "AltCI"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCR", ",", "AltCR"}], "]"}], ";"}], "\[IndentingNewLine]",
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+       "\"\<Alternative:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+       "]"}], ",", "2"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeGeomMeanByTheRow: \>\"", ",", 
+      RowBox[{"AltGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<AlternativeGeomMeanSum:        \>\"", ",", "AltGeomMeanSum", ",", 
+      "\"\<\\n\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativePrioritiesVectors: \>\"", ",", 
+      RowBox[{"AltPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeColumnNumSum:       \>\"", ",", 
+      RowBox[{"AltColumnNumSum", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Alt\[Lambda]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<CriteriaCI: \>\"", ",", "AltCI", ",", "\"\<\\n\>\"", ",", 
+      "\"\<CriteriaCR: \>\"", ",", "AltCR"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"IfConcerted", "[", "AltCR", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7009023149985723`*^9, 3.7009023585188675`*^9}, {
+   3.7009024115499325`*^9, 3.70090241267671*^9}, {3.7009039618998938`*^9, 
+   3.700903962075032*^9}, {3.7009040227511854`*^9, 3.7009040228772764`*^9}, {
+   3.7009062739482727`*^9, 3.700906274148378*^9}, 3.7009063150131693`*^9, 
+   3.7009064174324265`*^9, {3.700906774363092*^9, 3.7009067763793926`*^9}, {
+   3.700906890899949*^9, 3.7009069399385386`*^9}, {3.7009093494594774`*^9, 
+   3.7009093660503016`*^9}, {3.7009095292830195`*^9, 3.700909530106292*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   StyleBox["\<\"Alternative:\"\>",
+    StripOnInput->False,
+    LineColor->RGBColor[1, 0, 0],
+    FrontFaceColor->RGBColor[1, 0, 0],
+    BackFaceColor->RGBColor[1, 0, 0],
+    GraphicsColor->RGBColor[1, 0, 0],
+    FontSize->Larger,
+    FontWeight->Bold,
+    FontColor->RGBColor[1, 0, 0]], "\[InvisibleSpace]", "2"}],
+  SequenceForm[
+   Style["Alternative:", Bold, Larger, 
+    RGBColor[1, 0, 0]], 2],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.704014135567932*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"3.2710663101885897`"},
+        {"0.30571070873287987`"},
+        {"1.`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeGeomMeanByTheRow: ", 
+   MatrixForm[{3.2710663101885897`, 0.30571070873287987`, 1.}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.7040141355704293`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "4.57677701892147`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["AlternativeGeomMeanSum:        ", 4.57677701892147, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.704014135573429*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativePrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.7147095645396825`"},
+        {"0.06679606794672323`"},
+        {"0.21849436751359427`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativePrioritiesVectors: ", 
+   MatrixForm[{0.7147095645396825, 0.06679606794672323, 
+    0.21849436751359427`}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.7040141355759287`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"1.3428571428571427`"},
+        {"13.`"},
+        {"6.2`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeColumnNumSum:       ", 
+   MatrixForm[{1.3428571428571427`, 13., 6.2}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.7040141355784273`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "3.1827668057021175`"}],
+  SequenceForm["Criteria\[Lambda]: ", 3.1827668057021175`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.704014135580928*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", "0.09138340285105873`",
+    "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.15755759112251505`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.09138340285105873, "\n", "CriteriaCR: ", 
+   0.15755759112251505`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.7040141355829287`*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.703825264814864*^9, 3.704009505429637*^9, 3.704009572978072*^9, {
+   3.704010148071699*^9, 3.7040101693063626`*^9}, 3.70401084092117*^9, 
+   3.7040141355849266`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"3", "-", "Alternative"}], " ", "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum", ",", 
+     "\[IndentingNewLine]", "AltPrioritiesVectors", ",", 
+     "\[IndentingNewLine]", "AltColumnNumSum", ",", "\[IndentingNewLine]", 
+     "Alt\[Lambda]", ",", "\[IndentingNewLine]", "AltCI", ",", 
+     "\[IndentingNewLine]", "AltCR"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanByTheRow", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltPrioritiesVectors", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltColumnNumSum", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"GeomMean", "[", 
+     RowBox[{"AltGeomMeanByTheRow", ",", 
+      RowBox[{"Ai", "[", 
+       RowBox[{"[", "3", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", 
+     RowBox[{"GeomMeanSum", "[", "AltGeomMeanByTheRow", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrioritiesVector", "[", 
+     RowBox[{
+     "AltPrioritiesVectors", ",", "\[IndentingNewLine]", 
+      "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ColumnNumSum", "[", 
+     RowBox[{"AltColumnNumSum", ",", 
+      RowBox[{"TAi", "[", 
+       RowBox[{"[", "3", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", 
+     RowBox[{"\[Lambda]", "[", 
+      RowBox[{"AltPrioritiesVectors", ",", "AltColumnNumSum"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", 
+     RowBox[{"CI", "[", 
+      RowBox[{"Alt\[Lambda]", ",", "mAi"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", 
+     RowBox[{"CR", "[", 
+      RowBox[{"AltCI", ",", "mAi"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanByTheRow", ",", "AltGeomMeanByTheRow"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanSum", ",", "AltGeomMeanSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltPrioritiesVectors", ",", "AltPrioritiesVectors"}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltColumnNumSum", ",", "AltColumnNumSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAlt\[Lambda]", ",", "Alt\[Lambda]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCI", ",", "AltCI"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCR", ",", "AltCR"}], "]"}], ";"}], "\[IndentingNewLine]",
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+       "\"\<Alternative:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+       "]"}], ",", "3"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeGeomMeanByTheRow: \>\"", ",", 
+      RowBox[{"AltGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<AlternativeGeomMeanSum:        \>\"", ",", "AltGeomMeanSum", ",", 
+      "\"\<\\n\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativePrioritiesVectors: \>\"", ",", 
+      RowBox[{"AltPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeColumnNumSum:       \>\"", ",", 
+      RowBox[{"AltColumnNumSum", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Alt\[Lambda]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<CriteriaCI: \>\"", ",", "AltCI", ",", "\"\<\\n\>\"", ",", 
+      "\"\<CriteriaCR: \>\"", ",", "AltCR"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"IfConcerted", "[", "AltCR", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7009023149985723`*^9, 3.7009023585188675`*^9}, {
+   3.7009024115499325`*^9, 3.70090241267671*^9}, {3.7009039618998938`*^9, 
+   3.700903962075032*^9}, {3.7009040227511854`*^9, 3.7009040228772764`*^9}, {
+   3.7009062739482727`*^9, 3.700906274148378*^9}, 3.7009063150131693`*^9, 
+   3.7009064174324265`*^9, {3.700906774363092*^9, 3.7009067763793926`*^9}, {
+   3.700906890899949*^9, 3.7009069399385386`*^9}, {3.7009071745814543`*^9, 
+   3.7009071803222647`*^9}, {3.7009093523817005`*^9, 3.700909369951805*^9}, {
+   3.700909525611809*^9, 3.700909526380682*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   StyleBox["\<\"Alternative:\"\>",
+    StripOnInput->False,
+    LineColor->RGBColor[1, 0, 0],
+    FrontFaceColor->RGBColor[1, 0, 0],
+    BackFaceColor->RGBColor[1, 0, 0],
+    GraphicsColor->RGBColor[1, 0, 0],
+    FontSize->Larger,
+    FontWeight->Bold,
+    FontColor->RGBColor[1, 0, 0]], "\[InvisibleSpace]", "3"}],
+  SequenceForm[
+   Style["Alternative:", Bold, Larger, 
+    RGBColor[1, 0, 0]], 3],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356329308`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"1.`"},
+        {"0.4054801330382267`"},
+        {"2.46621207433047`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeGeomMeanByTheRow: ", 
+   MatrixForm[{1., 0.4054801330382267, 2.46621207433047}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.704014135634934*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "3.871692207368697`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["AlternativeGeomMeanSum:        ", 3.871692207368697, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.704014135637433*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativePrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.258284994374495`"},
+        {"0.10472943388074786`"},
+        {"0.636985571744757`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativePrioritiesVectors: ", 
+   MatrixForm[{0.258284994374495, 0.10472943388074786`, 0.636985571744757}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356409264`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"4.333333333333333`"},
+        {"9.`"},
+        {"1.5333333333333334`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeColumnNumSum:       ", 
+   MatrixForm[{4.333333333333333, 9., 1.5333333333333334`}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356434264`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "3.0385110905581696`"}],
+  SequenceForm["Criteria\[Lambda]: ", 3.0385110905581696`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356459255`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", 
+   "0.019255545279084796`", "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.033199215998422064`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.019255545279084796`, "\n", "CriteriaCR: ", 
+   0.033199215998422064`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356484337`*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.703825264860394*^9, 3.704009505514638*^9, 3.704009573044072*^9, {
+   3.704010148134696*^9, 3.704010169353363*^9}, 3.704010840987669*^9, 
+   3.7040141356504283`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"4", "-", "Alternative"}], " ", "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum", ",", 
+     "\[IndentingNewLine]", "AltPrioritiesVectors", ",", 
+     "\[IndentingNewLine]", "AltColumnNumSum", ",", "\[IndentingNewLine]", 
+     "Alt\[Lambda]", ",", "\[IndentingNewLine]", "AltCI", ",", 
+     "\[IndentingNewLine]", "AltCR"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanByTheRow", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltPrioritiesVectors", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltColumnNumSum", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"GeomMean", "[", 
+     RowBox[{"AltGeomMeanByTheRow", ",", 
+      RowBox[{"Ai", "[", 
+       RowBox[{"[", "4", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", 
+     RowBox[{"GeomMeanSum", "[", "AltGeomMeanByTheRow", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrioritiesVector", "[", 
+     RowBox[{
+     "AltPrioritiesVectors", ",", "\[IndentingNewLine]", 
+      "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ColumnNumSum", "[", 
+     RowBox[{"AltColumnNumSum", ",", 
+      RowBox[{"TAi", "[", 
+       RowBox[{"[", "4", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", 
+     RowBox[{"\[Lambda]", "[", 
+      RowBox[{"AltPrioritiesVectors", ",", "AltColumnNumSum"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", 
+     RowBox[{"CI", "[", 
+      RowBox[{"Alt\[Lambda]", ",", "mAi"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", 
+     RowBox[{"CR", "[", 
+      RowBox[{"AltCI", ",", "mAi"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanByTheRow", ",", "AltGeomMeanByTheRow"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanSum", ",", "AltGeomMeanSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltPrioritiesVectors", ",", "AltPrioritiesVectors"}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltColumnNumSum", ",", "AltColumnNumSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAlt\[Lambda]", ",", "Alt\[Lambda]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCI", ",", "AltCI"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCR", ",", "AltCR"}], "]"}], ";"}], "\[IndentingNewLine]",
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+       "\"\<Alternative:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+       "]"}], ",", "4"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeGeomMeanByTheRow: \>\"", ",", 
+      RowBox[{"AltGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<AlternativeGeomMeanSum:        \>\"", ",", "AltGeomMeanSum", ",", 
+      "\"\<\\n\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativePrioritiesVectors: \>\"", ",", 
+      RowBox[{"AltPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeColumnNumSum:       \>\"", ",", 
+      RowBox[{"AltColumnNumSum", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Alt\[Lambda]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<CriteriaCI: \>\"", ",", "AltCI", ",", "\"\<\\n\>\"", ",", 
+      "\"\<CriteriaCR: \>\"", ",", "AltCR"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"IfConcerted", "[", "AltCR", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7009023149985723`*^9, 3.7009023585188675`*^9}, {
+   3.7009024115499325`*^9, 3.70090241267671*^9}, {3.7009039618998938`*^9, 
+   3.700903962075032*^9}, {3.7009040227511854`*^9, 3.7009040228772764`*^9}, {
+   3.7009062739482727`*^9, 3.700906274148378*^9}, 3.7009063150131693`*^9, 
+   3.7009064174324265`*^9, {3.700906774363092*^9, 3.7009067763793926`*^9}, {
+   3.700906890899949*^9, 3.7009069399385386`*^9}, {3.7009071745814543`*^9, 
+   3.7009071803222647`*^9}, {3.7009093523817005`*^9, 3.700909369951805*^9}, {
+   3.700909525611809*^9, 3.700909526380682*^9}, {3.7038248907111053`*^9, 
+   3.703824923077159*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   StyleBox["\<\"Alternative:\"\>",
+    StripOnInput->False,
+    LineColor->RGBColor[1, 0, 0],
+    FrontFaceColor->RGBColor[1, 0, 0],
+    BackFaceColor->RGBColor[1, 0, 0],
+    GraphicsColor->RGBColor[1, 0, 0],
+    FontSize->Larger,
+    FontWeight->Bold,
+    FontColor->RGBColor[1, 0, 0]], "\[InvisibleSpace]", "4"}],
+  SequenceForm[
+   Style["Alternative:", Bold, Larger, 
+    RGBColor[1, 0, 0]], 4],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141356979275`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.30571070873287987`"},
+        {"3.2710663101885897`"},
+        {"1.`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeGeomMeanByTheRow: ", 
+   MatrixForm[{0.30571070873287987`, 3.2710663101885897`, 1.}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.704014135700429*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "4.57677701892147`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["AlternativeGeomMeanSum:        ", 4.57677701892147, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141357029257`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativePrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.06679606794672323`"},
+        {"0.7147095645396825`"},
+        {"0.21849436751359427`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativePrioritiesVectors: ", 
+   MatrixForm[{0.06679606794672323, 0.7147095645396825, 
+    0.21849436751359427`}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141357049274`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"13.`"},
+        {"1.3428571428571427`"},
+        {"6.2`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeColumnNumSum:       ", 
+   MatrixForm[{13., 1.3428571428571427`, 6.2}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141357079296`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "3.1827668057021175`"}],
+  SequenceForm["Criteria\[Lambda]: ", 3.1827668057021175`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141357104287`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", "0.09138340285105873`",
+    "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.15755759112251505`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.09138340285105873, "\n", "CriteriaCR: ", 
+   0.15755759112251505`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.7040141357124257`*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.703825264904423*^9, 3.70400950560714*^9, 3.7040095731115713`*^9, {
+   3.704010148197196*^9, 3.7040101694003625`*^9}, 3.7040108410516677`*^9, 
+   3.704014135714428*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{"5", "-", "Alternative"}], " ", "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "[", "\[IndentingNewLine]", 
+    RowBox[{
+    "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum", ",", 
+     "\[IndentingNewLine]", "AltPrioritiesVectors", ",", 
+     "\[IndentingNewLine]", "AltColumnNumSum", ",", "\[IndentingNewLine]", 
+     "Alt\[Lambda]", ",", "\[IndentingNewLine]", "AltCI", ",", 
+     "\[IndentingNewLine]", "AltCR"}], "\[IndentingNewLine]", "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanByTheRow", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltPrioritiesVectors", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltColumnNumSum", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"GeomMean", "[", 
+     RowBox[{"AltGeomMeanByTheRow", ",", 
+      RowBox[{"Ai", "[", 
+       RowBox[{"[", "5", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltGeomMeanSum", "=", 
+     RowBox[{"GeomMeanSum", "[", "AltGeomMeanByTheRow", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrioritiesVector", "[", 
+     RowBox[{
+     "AltPrioritiesVectors", ",", "\[IndentingNewLine]", 
+      "AltGeomMeanByTheRow", ",", "\[IndentingNewLine]", "AltGeomMeanSum"}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"ColumnNumSum", "[", 
+     RowBox[{"AltColumnNumSum", ",", 
+      RowBox[{"TAi", "[", 
+       RowBox[{"[", "5", "]"}], "]"}]}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Alt\[Lambda]", "=", 
+     RowBox[{"\[Lambda]", "[", 
+      RowBox[{"AltPrioritiesVectors", ",", "AltColumnNumSum"}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCI", "=", 
+     RowBox[{"CI", "[", 
+      RowBox[{"Alt\[Lambda]", ",", "mAi"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AltCR", "=", 
+     RowBox[{"CR", "[", 
+      RowBox[{"AltCI", ",", "mAi"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanByTheRow", ",", "AltGeomMeanByTheRow"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltGeomMeanSum", ",", "AltGeomMeanSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltPrioritiesVectors", ",", "AltPrioritiesVectors"}], "]"}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltColumnNumSum", ",", "AltColumnNumSum"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAlt\[Lambda]", ",", "Alt\[Lambda]"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCI", ",", "AltCI"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"AppendTo", "[", 
+     RowBox[{"ListAltCR", ",", "AltCR"}], "]"}], ";"}], "\[IndentingNewLine]",
+    "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+       "\"\<Alternative:\>\"", ",", "Bold", ",", "Larger", ",", "Red"}], 
+       "]"}], ",", "5"}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeGeomMeanByTheRow: \>\"", ",", 
+      RowBox[{"AltGeomMeanByTheRow", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<AlternativeGeomMeanSum:        \>\"", ",", "AltGeomMeanSum", ",", 
+      "\"\<\\n\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativePrioritiesVectors: \>\"", ",", 
+      RowBox[{"AltPrioritiesVectors", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<AlternativeColumnNumSum:       \>\"", ",", 
+      RowBox[{"AltColumnNumSum", "//", "MatrixForm"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Criteria\[Lambda]: \>\"", ",", "Alt\[Lambda]"}], "]"}], 
+    ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{
+     "\"\<CriteriaCI: \>\"", ",", "AltCI", ",", "\"\<\\n\>\"", ",", 
+      "\"\<CriteriaCR: \>\"", ",", "AltCR"}], "]"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"IfConcerted", "[", "AltCR", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.7009023149985723`*^9, 3.7009023585188675`*^9}, {
+   3.7009024115499325`*^9, 3.70090241267671*^9}, {3.7009039618998938`*^9, 
+   3.700903962075032*^9}, {3.7009040227511854`*^9, 3.7009040228772764`*^9}, {
+   3.7009062739482727`*^9, 3.700906274148378*^9}, 3.7009063150131693`*^9, 
+   3.7009064174324265`*^9, {3.700906774363092*^9, 3.7009067763793926`*^9}, {
+   3.700906890899949*^9, 3.7009069399385386`*^9}, {3.7009071745814543`*^9, 
+   3.7009071803222647`*^9}, {3.7009093523817005`*^9, 3.700909369951805*^9}, {
+   3.700909525611809*^9, 3.700909526380682*^9}, {3.7038248960048227`*^9, 
+   3.703824918811231*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   StyleBox["\<\"Alternative:\"\>",
+    StripOnInput->False,
+    LineColor->RGBColor[1, 0, 0],
+    FrontFaceColor->RGBColor[1, 0, 0],
+    BackFaceColor->RGBColor[1, 0, 0],
+    GraphicsColor->RGBColor[1, 0, 0],
+    FontSize->Larger,
+    FontWeight->Bold,
+    FontColor->RGBColor[1, 0, 0]], "\[InvisibleSpace]", "5"}],
+  SequenceForm[
+   Style["Alternative:", Bold, Larger, 
+    RGBColor[1, 0, 0]], 5],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.7040141357632914`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanByTheRow: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.4054801330382267`"},
+        {"2.46621207433047`"},
+        {"1.`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeGeomMeanByTheRow: ", 
+   MatrixForm[{0.4054801330382267, 2.46621207433047, 1.}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.704014135765291*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeGeomMeanSum:        \"\>", "\[InvisibleSpace]", 
+   "3.871692207368697`", "\[InvisibleSpace]", "\<\"\\n\"\>"}],
+  SequenceForm["AlternativeGeomMeanSum:        ", 3.871692207368697, "\n"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.704014135767789*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativePrioritiesVectors: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"0.10472943388074786`"},
+        {"0.636985571744757`"},
+        {"0.258284994374495`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativePrioritiesVectors: ", 
+   MatrixForm[{0.10472943388074786`, 0.636985571744757, 0.258284994374495}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.704014135770788*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"AlternativeColumnNumSum:       \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    RowBox[{"(", "\[NoBreak]", 
+     TagBox[GridBox[{
+        {"9.`"},
+        {"1.5333333333333334`"},
+        {"4.333333333333333`"}
+       },
+       GridBoxAlignment->{
+        "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, 
+         "Rows" -> {{Baseline}}, "RowsIndexed" -> {}},
+       GridBoxSpacings->{"Columns" -> {
+           Offset[0.27999999999999997`], {
+            Offset[0.5599999999999999]}, 
+           Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+           Offset[0.2], {
+            Offset[0.4]}, 
+           Offset[0.2]}, "RowsIndexed" -> {}}],
+      Column], "\[NoBreak]", ")"}],
+    Function[BoxForm`e$, 
+     MatrixForm[BoxForm`e$]]]}],
+  SequenceForm["AlternativeColumnNumSum:       ", 
+   MatrixForm[{9., 1.5333333333333334`, 4.333333333333333}]],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.7040141357737894`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Criteria\[Lambda]: \"\>", "\[InvisibleSpace]", 
+   "3.0385110905581696`"}],
+  SequenceForm["Criteria\[Lambda]: ", 3.0385110905581696`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.7040141357757883`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"CriteriaCI: \"\>", "\[InvisibleSpace]", 
+   "0.019255545279084796`", "\[InvisibleSpace]", "\<\"\\n\"\>", 
+   "\[InvisibleSpace]", "\<\"CriteriaCR: \"\>", "\[InvisibleSpace]", 
+   "0.033199215998422064`"}],
+  SequenceForm[
+  "CriteriaCI: ", 0.019255545279084796`, "\n", "CriteriaCR: ", 
+   0.033199215998422064`],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.7040141357782884`*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"The expert's preferences are WELL concerted!\"\>",
+  StripOnInput->False,
+  FontSize->Larger,
+  FontWeight->Bold]], "Print",
+ CellChangeTimes->{
+  3.7038252649519544`*^9, 3.704009505685141*^9, 3.7040095731770706`*^9, {
+   3.7040101482625027`*^9, 3.704010169447861*^9}, 3.7040108411181717`*^9, 
+   3.7040141357807903`*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Pa", "=", 
+   RowBox[{"Transpose", "[", "ListAltPrioritiesVectors", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Pa", "//", 
+  "MatrixForm"}], "\[IndentingNewLine]", "ListAltCI", "\[IndentingNewLine]", \
+"ListAltCR"}], "Input",
+ CellChangeTimes->{{3.700902469629855*^9, 3.7009024905954394`*^9}, {
+  3.7009025226650944`*^9, 3.700902674301443*^9}, {3.7009095004561906`*^9, 
+  3.70090950068795*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0.06679606794672323`", "0.7147095645396825`", "0.258284994374495`", 
+      "0.06679606794672323`", "0.10472943388074786`"},
+     {"0.7147095645396825`", "0.06679606794672323`", "0.10472943388074786`", 
+      "0.7147095645396825`", "0.636985571744757`"},
+     {"0.21849436751359427`", "0.21849436751359427`", "0.636985571744757`", 
+      "0.21849436751359427`", "0.258284994374495`"}
+    },
+    GridBoxAlignment->{
+     "Columns" -> {{Center}}, "ColumnsIndexed" -> {}, "Rows" -> {{Baseline}}, 
+      "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "ColumnsIndexed" -> {}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
+  Function[BoxForm`e$, 
+   MatrixForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.7009024927420683`*^9, 3.700902529842161*^9, {3.7009025613296995`*^9, 
+   3.700902584747791*^9}, 3.70090268556415*^9, 3.700902927247253*^9, 
+   3.700903992644986*^9, 3.7009051173485293`*^9, 3.7009052120251484`*^9, 
+   3.700906024087738*^9, 3.700906426267926*^9, 3.7009069241319227`*^9, 
+   3.700907124692804*^9, 3.700907190210432*^9, 3.7009078771517124`*^9, 
+   3.700908223295705*^9, 3.700908851739172*^9, 3.700908916558771*^9, 
+   3.700909373891449*^9, 3.7009095396338634`*^9, 3.703825264995983*^9, 
+   3.7040095057486362`*^9, 3.7040095732410707`*^9, {3.7040101483235054`*^9, 
+   3.7040101694918613`*^9}, 3.7040108411816683`*^9, 3.704014135824789*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.09138340285105873`", ",", "0.09138340285105873`", ",", 
+   "0.019255545279084796`", ",", "0.09138340285105873`", ",", 
+   "0.019255545279084796`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7009024927420683`*^9, 3.700902529842161*^9, {3.7009025613296995`*^9, 
+   3.700902584747791*^9}, 3.70090268556415*^9, 3.700902927247253*^9, 
+   3.700903992644986*^9, 3.7009051173485293`*^9, 3.7009052120251484`*^9, 
+   3.700906024087738*^9, 3.700906426267926*^9, 3.7009069241319227`*^9, 
+   3.700907124692804*^9, 3.700907190210432*^9, 3.7009078771517124`*^9, 
+   3.700908223295705*^9, 3.700908851739172*^9, 3.700908916558771*^9, 
+   3.700909373891449*^9, 3.7009095396338634`*^9, 3.703825264995983*^9, 
+   3.7040095057486362`*^9, 3.7040095732410707`*^9, {3.7040101483235054`*^9, 
+   3.7040101694918613`*^9}, 3.7040108411816683`*^9, 3.7040141358272886`*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.15755759112251505`", ",", "0.15755759112251505`", ",", 
+   "0.033199215998422064`", ",", "0.15755759112251505`", ",", 
+   "0.033199215998422064`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7009024927420683`*^9, 3.700902529842161*^9, {3.7009025613296995`*^9, 
+   3.700902584747791*^9}, 3.70090268556415*^9, 3.700902927247253*^9, 
+   3.700903992644986*^9, 3.7009051173485293`*^9, 3.7009052120251484`*^9, 
+   3.700906024087738*^9, 3.700906426267926*^9, 3.7009069241319227`*^9, 
+   3.700907124692804*^9, 3.700907190210432*^9, 3.7009078771517124`*^9, 
+   3.700908223295705*^9, 3.700908851739172*^9, 3.700908916558771*^9, 
+   3.700909373891449*^9, 3.7009095396338634`*^9, 3.703825264995983*^9, 
+   3.7040095057486362`*^9, 3.7040095732410707`*^9, {3.7040101483235054`*^9, 
+   3.7040101694918613`*^9}, 3.7040108411816683`*^9, 3.7040141358292894`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"p", "=", 
+  RowBox[{"Pa", ".", "CriteriaPrioritiesVectors"}]}]], "Input",
+ CellChangeTimes->{{3.700902981298521*^9, 3.700902982784543*^9}, {
+  3.7009030679236183`*^9, 3.700903069208366*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0.15979664946137254`", ",", "0.5099870482346717`", ",", 
+   "0.3302163023039556`"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7009029857201033`*^9, {3.70090307109031*^9, 3.700903075442808*^9}, 
+   3.7009039926745143`*^9, 3.7009051173690476`*^9, 3.700905212047165*^9, 
+   3.7009060241250057`*^9, 3.7009064263168063`*^9, 3.7009069241788015`*^9, 
+   3.70090712475531*^9, 3.7009071902265162`*^9, 3.7009078771701174`*^9, 
+   3.700908223330967*^9, 3.7009088517921*^9, 3.700908916593027*^9, 
+   3.7009093739071517`*^9, 3.700909539668125*^9, 3.7038252650270042`*^9, 
+   3.704009505874119*^9, 3.704009573291577*^9, {3.7040101483696585`*^9, 
+   3.7040101695158615`*^9}, 3.7040108412311687`*^9, 3.7040141358710814`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"HierarchyCI", "=", 
+  RowBox[{"CriteriaCI", "+", 
+   RowBox[{"CriteriaPrioritiesVectors", ".", "ListAltCI"}]}]}]], "Input",
+ CellChangeTimes->{{3.700903146527997*^9, 3.7009032070426464`*^9}, 
+   3.7009032387876716`*^9, {3.7009033855760856`*^9, 3.7009033972755384`*^9}, 
+   3.7009034856788783`*^9, {3.700903693753523*^9, 3.7009037000025005`*^9}}],
+
+Cell[BoxData["0.13071238146744718`"], "Output",
+ CellChangeTimes->{{3.7009032139032617`*^9, 3.700903240323517*^9}, {
+   3.7009033872095776`*^9, 3.700903399498557*^9}, 3.7009034886794157`*^9, 
+   3.700903992694528*^9, 3.7009051173850613`*^9, 3.70090521206518*^9, 
+   3.700906024140668*^9, 3.7009064263525653`*^9, 3.700906924216563*^9, 
+   3.700907124793069*^9, 3.7009071902577634`*^9, 3.7009078772013683`*^9, 
+   3.70090822334748*^9, 3.700908851854604*^9, 3.700908916609541*^9, 
+   3.700909373938401*^9, 3.700909539683751*^9, 3.703825265053522*^9, 
+   3.7040095059156227`*^9, 3.704009573370756*^9, {3.7040101484136353`*^9, 
+   3.7040101695363617`*^9}, 3.704010841278741*^9, 3.7040141359135823`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"HierarchyRI", "=", 
+  RowBox[{
+   RowBox[{"RI", "[", 
+    RowBox[{"[", 
+     RowBox[{"2", ",", 
+      RowBox[{"mCM", "-", "1"}]}], "]"}], "]"}], "+", 
+   RowBox[{"RI", "[", 
+    RowBox[{"[", 
+     RowBox[{"2", ",", 
+      RowBox[{"mAi", "-", "1"}]}], "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7009036834215975`*^9, 3.700903747723674*^9}, {
+  3.700903782087159*^9, 3.700903841381759*^9}, {3.70090387509472*^9, 
+  3.7009038780200405`*^9}}],
+
+Cell[BoxData["1.7000000000000002`"], "Output",
+ CellChangeTimes->{
+  3.7009038438695993`*^9, 3.7009038788017263`*^9, 3.700903992716544*^9, 
+   3.7009051174010663`*^9, 3.7009052120841928`*^9, 3.70090602417192*^9, 
+   3.700906426368189*^9, 3.700906924247816*^9, 3.7009071248243265`*^9, 
+   3.700907190273385*^9, 3.7009078772326193`*^9, 3.7009082233674927`*^9, 
+   3.700908851877239*^9, 3.7009089166126275`*^9, 3.7009093739540253`*^9, 
+   3.700909539699383*^9, 3.70382526508154*^9, 3.704009505957622*^9, 
+   3.704009573423257*^9, {3.704010148456659*^9, 3.704010169555862*^9}, 
+   3.7040108413247375`*^9, 3.7040141359555826`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CR", "=", 
+  FractionBox["HierarchyCI", "HierarchyRI"]}]], "Input",
+ CellChangeTimes->{{3.700903884498163*^9, 3.7009038936283946`*^9}}],
+
+Cell[BoxData["0.07688963615732186`"], "Output",
+ CellChangeTimes->{
+  3.700903894401622*^9, 3.7009039927395563`*^9, 3.700905117419091*^9, 
+   3.70090521210408*^9, 3.700906024219802*^9, 3.7009064263838167`*^9, 
+   3.7009069242634425`*^9, 3.700907124855576*^9, 3.700907190289011*^9, 
+   3.700907877274515*^9, 3.700908223377963*^9, 3.700908851908493*^9, 
+   3.700908916628253*^9, 3.7009093739877825`*^9, 3.700909539715006*^9, 
+   3.703825265109558*^9, 3.7040095059975634`*^9, 3.704009573473754*^9, {
+   3.704010148498158*^9, 3.704010169575362*^9}, 3.7040108413782372`*^9, 
+   3.7040141359975815`*^9}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{773, 769},
+WindowMargins->{{Automatic, -221}, {Automatic, 8}},
+PrintingCopies->1,
+PrintingPageRange->{32000, 32000},
+PrintingOptions->{"Magnification"->1.,
+"PaperOrientation"->"Portrait",
+"PaperSize"->{595.3199999999999, 841.92}},
+ShowSelection->True,
+Magnification->0.9499998092651367,
+FrontEndVersion->"9.0 for Microsoft Windows (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 163, 2, 84, "Title"],
+Cell[CellGroupData[{
+Cell[768, 28, 28, 0, 40, "Subsection"],
+Cell[799, 30, 138, 5, 67, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[974, 40, 36, 0, 40, "Subsection"],
+Cell[1013, 42, 248, 5, 30, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1298, 52, 252, 3, 76, "Section"],
+Cell[1553, 57, 6214, 153, 607, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7804, 215, 243, 3, 76, "Section"],
+Cell[8050, 220, 8523, 189, 914, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16610, 414, 305, 4, 76, "Section"],
+Cell[CellGroupData[{
+Cell[16940, 422, 147, 2, 40, "Subsection"],
+Cell[CellGroupData[{
+Cell[17112, 428, 2855, 82, 571, "Input"],
+Cell[CellGroupData[{
+Cell[19992, 514, 484, 13, 23, "Print"],
+Cell[20479, 529, 1245, 32, 77, "Print"],
+Cell[21727, 563, 464, 9, 40, "Print"],
+Cell[22194, 574, 1282, 32, 77, "Print"],
+Cell[23479, 608, 1250, 32, 77, "Print"],
+Cell[24732, 642, 406, 9, 21, "Print"],
+Cell[25141, 653, 584, 13, 40, "Print"],
+Cell[25728, 668, 346, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26135, 683, 151, 2, 40, "Subsection"],
+Cell[26289, 687, 1083, 26, 171, "Input"],
+Cell[CellGroupData[{
+Cell[27397, 717, 5550, 136, 751, "Input"],
+Cell[CellGroupData[{
+Cell[32972, 857, 668, 19, 21, "Print"],
+Cell[33643, 878, 1140, 29, 49, "Print"],
+Cell[34786, 909, 468, 9, 40, "Print"],
+Cell[35257, 920, 1180, 30, 49, "Print"],
+Cell[36440, 952, 1113, 29, 48, "Print"],
+Cell[37556, 983, 405, 9, 21, "Print"],
+Cell[37964, 994, 577, 13, 40, "Print"],
+Cell[38544, 1009, 346, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38939, 1023, 5688, 140, 1031, "Input"],
+Cell[CellGroupData[{
+Cell[44652, 1167, 663, 19, 21, "Print"],
+Cell[45318, 1188, 1137, 29, 49, "Print"],
+Cell[46458, 1219, 463, 9, 40, "Print"],
+Cell[46924, 1230, 1177, 30, 49, "Print"],
+Cell[48104, 1262, 1110, 29, 48, "Print"],
+Cell[49217, 1293, 402, 9, 21, "Print"],
+Cell[49622, 1304, 576, 13, 40, "Print"],
+Cell[50201, 1319, 343, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50593, 1333, 5738, 141, 1031, "Input"],
+Cell[CellGroupData[{
+Cell[56356, 1478, 664, 19, 21, "Print"],
+Cell[57023, 1499, 1126, 29, 48, "Print"],
+Cell[58152, 1530, 464, 9, 40, "Print"],
+Cell[58619, 1541, 1165, 29, 47, "Print"],
+Cell[59787, 1572, 1135, 29, 47, "Print"],
+Cell[60925, 1603, 403, 9, 21, "Print"],
+Cell[61331, 1614, 580, 13, 40, "Print"],
+Cell[61914, 1629, 342, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62305, 1643, 5790, 142, 1031, "Input"],
+Cell[CellGroupData[{
+Cell[68120, 1789, 669, 19, 21, "Print"],
+Cell[68792, 1810, 1139, 29, 49, "Print"],
+Cell[69934, 1841, 469, 9, 40, "Print"],
+Cell[70406, 1852, 1181, 30, 49, "Print"],
+Cell[71590, 1884, 1114, 29, 48, "Print"],
+Cell[72707, 1915, 408, 9, 21, "Print"],
+Cell[73118, 1926, 580, 13, 40, "Print"],
+Cell[73701, 1941, 345, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74095, 1955, 5790, 142, 1031, "Input"],
+Cell[CellGroupData[{
+Cell[79910, 2101, 672, 19, 21, "Print"],
+Cell[80585, 2122, 1134, 29, 48, "Print"],
+Cell[81722, 2153, 472, 9, 40, "Print"],
+Cell[82197, 2164, 1171, 29, 47, "Print"],
+Cell[83371, 2195, 1143, 29, 47, "Print"],
+Cell[84517, 2226, 411, 9, 21, "Print"],
+Cell[84931, 2237, 588, 13, 40, "Print"],
+Cell[85522, 2252, 350, 8, 23, "Print"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[85921, 2266, 440, 10, 91, "Input"],
+Cell[86364, 2278, 1618, 31, 73, "Output"],
+Cell[87985, 2311, 889, 15, 29, "Output"],
+Cell[88877, 2328, 889, 15, 29, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[89803, 2348, 214, 4, 30, "Input"],
+Cell[90020, 2354, 752, 13, 29, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[90809, 2372, 369, 6, 30, "Input"],
+Cell[91181, 2380, 697, 9, 29, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[91915, 2394, 469, 13, 30, "Input"],
+Cell[92387, 2409, 625, 9, 29, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[93049, 2423, 159, 3, 46, "Input"],
+Cell[93211, 2428, 597, 9, 61, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
